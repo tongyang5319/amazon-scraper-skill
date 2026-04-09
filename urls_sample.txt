@@ -1,0 +1,5 @@
+# 每行一个 URL，复制此文件为 urls.txt 后填入
+
+# 示例：
+# https://www.amazon.com/gp/new-releases/automotive/2201763011/
+# https://www.amazon.com/gp/new-releases/automotive/15706941/

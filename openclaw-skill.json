@@ -1,0 +1,89 @@
+{
+  "name": "amazon-scraper",
+  "version": "1.0.0",
+  "description": "抓取 Amazon 新品榜/畅销榜商品信息，含详情页、评论、图片输出",
+  "trigger": "/scrape-amazon",
+  "command": "poetry run python -m amazon_unified_scraper",
+  "parameters": [
+    {
+      "name": "url",
+      "flag": "-u",
+      "type": "string",
+      "required": true,
+      "description": "Amazon 类目 URL"
+    },
+    {
+      "name": "count",
+      "flag": "--max-list",
+      "type": "integer",
+      "default": 50,
+      "description": "抓取商品数量，默认50"
+    },
+    {
+      "name": "detail-count",
+      "flag": "--max-detail",
+      "type": "integer",
+      "default": null,
+      "description": "详情页抓取数量，默认=count"
+    },
+    {
+      "name": "reviews",
+      "flag": "--max-reviews",
+      "type": "integer",
+      "default": 5,
+      "description": "每个商品抓取评论数，默认5"
+    },
+    {
+      "name": "format",
+      "flag": "--format",
+      "type": "string",
+      "default": "xlsx",
+      "description": "输出格式：xlsx（默认，含图片）或 csv"
+    },
+    {
+      "name": "postal-code",
+      "flag": "--postal-code",
+      "type": "string",
+      "default": null,
+      "description": "目标国家邮政编码（如 10001 美国纽约）"
+    },
+    {
+      "name": "retry-asin",
+      "flag": "--retry-asin",
+      "type": "string",
+      "default": null,
+      "description": "复查指定 ASIN 的缺失字段（不需要 URL）"
+    },
+    {
+      "name": "auto-retry",
+      "flag": "--auto-retry",
+      "type": "boolean",
+      "default": true,
+      "description": "自动复查缺失字段并补抓（默认开启，--no-auto-retry 可关闭）"
+    },
+    {
+      "name": "delay-min",
+      "flag": "--delay-min",
+      "type": "float",
+      "default": 8.0,
+      "description": "详情页最小延迟秒数，默认8"
+    },
+    {
+      "name": "delay-max",
+      "flag": "--delay-max",
+      "type": "float",
+      "default": 15.0,
+      "description": "详情页最大延迟秒数，默认15"
+    }
+  ],
+  "examples": [
+    "/scrape-amazon -u https://www.amazon.com/gp/new-releases/automotive/2201763011/ --count 100",
+    "/scrape-amazon -u https://... --count 50 --format csv",
+    "/scrape-amazon --retry-asin B0FH1L3LM1 --retry-asin B0G48MHVYV"
+  ],
+  "notes": [
+    "输出文件保存在 data/ 目录下，XLSX 格式默认嵌入产品图片",
+    "货币由 IP 地理位置决定，与 --postal-code 参数无关",
+    "ClawHub 上传包不含 drivers/，本地运行需从 amazon-unified-scraper 复制 chromedriver.exe 到 drivers/ 目录"
+  ]
+}
