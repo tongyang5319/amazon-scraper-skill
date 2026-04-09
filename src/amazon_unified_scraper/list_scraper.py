@@ -73,10 +73,20 @@ class ListScraper:
 
     def _init_driver(self) -> webdriver.Chrome:
         """Create a Chrome webdriver with anti-detection settings."""
+        import platform
+        system = platform.system().lower()
+        if system == "darwin":
+            arch = platform.machine()
+            driver_name = "chromedriver-mac-arm64" if "arm" in arch else "chromedriver-mac-x64"
+            driver_exe = driver_name
+        elif system == "windows":
+            driver_exe = "chromedriver.exe"
+            driver_name = "chromedriver-win64"
+        else:
+            driver_exe = "chromedriver"
+            driver_name = "chromedriver-linux64"
         project_root = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-        chromedriver_path = os.path.join(
-            project_root, "drivers", "chromedriver-win64", "chromedriver.exe"
-        )
+        chromedriver_path = os.path.join(project_root, "drivers", driver_name, driver_exe)
 
         options = Options()
         options.add_argument("--headless=new")

@@ -169,7 +169,17 @@ poetry run python -m amazon_unified_scraper ^
 ## ChromeDriver 与 drivers 目录
 
 **本地运行**（必须）：
-ChromeDriver 文件存放在 `drivers/chromedriver-win64/chromedriver.exe`，由项目自动加载，无需手动配置。
+ChromeDriver 文件存放在 `drivers/` 目录，由项目自动识别系统加载。
+
+| 系统 | 目录 | 说明 |
+|------|------|------|
+| Windows | `drivers/chromedriver-win64/chromedriver.exe` | 已包含 |
+| macOS ARM (M1/M2/M3) | `drivers/chromedriver-mac-arm64/chromedriver` | 需手动下载 |
+| macOS Intel | `drivers/chromedriver-mac-x64/chromedriver` | 需手动下载 |
+| Linux | `drivers/chromedriver-linux64/chromedriver` | 需手动下载 |
+
+**下载 Mac/Linux chromedriver**：
+访问 [https://googlechromelabs.github.io/chrome-for-testing/](https://googlechromelabs.github.io/chrome-for-testing/)，下载对应版本的 `chromedriver_mac_arm64.zip` 或 `chromedriver_linux64.zip`，解压后将文件放入对应目录。
 
 **上传 ClawHub**：
 ClawHub 对单个文件大小有限制（10MB），chromedriver.exe（约12MB）不得上传。上传前需排除 drivers 目录：
